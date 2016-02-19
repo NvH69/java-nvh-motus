@@ -13,7 +13,7 @@ public class Dictionaries {
     public static List<List<String>> fullDictionary = resetDictionary();
     public static final List<List<String>> solutionsDictionary = resetDictionary();
     private static URL fullDictionaryPath = Dictionaries.class.getResource("/Dico56789.txt");
-    private static URL solutionsDictionaryPath = Dictionaries.class.getResource("/Dico56789.txt");
+    private static URL solutionsDictionaryPath = Dictionaries.class.getResource("/2000mots.txt");
 
     public Dictionaries() {
 

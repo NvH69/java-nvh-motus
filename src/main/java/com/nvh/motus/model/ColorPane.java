@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class ColorPane extends JTextPane {
 
-    public void append(String fonte, int taille, Color c, String s) {
+    public void append(String fonte, int taille, Color c, Object s) {
 
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
@@ -29,10 +29,13 @@ public class ColorPane extends JTextPane {
         setCharacterAttributes(aset3, false);
         setCharacterAttributes(aset4, false);
 
-        replaceSelection(s);
+        replaceSelection(s.toString());
+
+        this.update(this.getGraphics());
     }
 
-    public void replace(String fonte, int taille, Color c, String s, int pos1, int pos2) {
+    public void replace(String fonte, int taille, Color c, Object s, int pos1, int pos2) {
+
         setCaretPosition(pos2);
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
@@ -49,6 +52,15 @@ public class ColorPane extends JTextPane {
         setCharacterAttributes(aset3, false);
         setCharacterAttributes(aset4, false);
         moveCaretPosition(pos1);
-        replaceSelection(s);
+        replaceSelection(s.toString());
+        this.update(this.getGraphics());
+    }
+
+    public int getLettersCount() {
+        int lettersCount = 0;
+        for (Character c : this.getText().toCharArray()) {
+            if (Character.isLetter(c)) lettersCount++;
+        }
+        return lettersCount;
     }
 }

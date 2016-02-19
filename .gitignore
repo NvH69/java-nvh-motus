@@ -1,0 +1,4 @@
+*.DS_Store
+/out
+/.idea
+/src/main/java/com/nvh/motus/view/MultiplayerView.java
