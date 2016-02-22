@@ -3,7 +3,10 @@ package com.nvh.motus.model;
 import com.nvh.motus.service.ResourceLoader;
 
 import javax.sound.sampled.*;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class SampledSon {
 
@@ -37,11 +40,10 @@ public class SampledSon {
         return samples;
     }
 
-
     public void play() {
         InputStream source = new ByteArrayInputStream(this.getSamples());
 
-        int bufferSize = 1000000;
+        int bufferSize = 100000;
         byte[] buffer = new byte[bufferSize];
         SourceDataLine line;
         try {

@@ -2,7 +2,6 @@ package com.nvh.motus.service;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Path;
 
 public class ResourceLoader implements Serializable {
     private static final long serialVersionUID = 5417648932725664389L;
@@ -37,29 +36,5 @@ public class ResourceLoader implements Serializable {
             throw new RuntimeException("Error: File " + file + " not found!");
         }
         return file;
-    }
-
-    public Path getPathFromResource(String resource) {
-        URL res = getClass().getResource(resource);
-        if (res.toString().startsWith("jar:")) {
-            // for JAR
-            try {
-                InputStream input = res.openStream();
-
-                file = File.createTempFile("tempfile", ".tmp");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            //for IDE
-            file = new File(res.getFile());
-        }
-
-        if (file != null && !file.exists()) {
-            throw new RuntimeException("Error: File " + file + " not found!");
-        }
-        return file.toPath();
     }
 }
