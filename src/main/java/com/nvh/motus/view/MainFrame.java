@@ -23,7 +23,7 @@ public class MainFrame extends JFrame implements KeyListener {
     final SampledSon perdu = new SampledSon("/fin_perdu.wav");
     //    final SampledSon ting = new SampledSon("/ting.wav");
 //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
-    final SampledSon applause = new SampledSon("/GAGNER.wav");
+    final SampledSon applause = new SampledSon("/gagne.au");
     //    final SampledSon change = new SampledSon("/Body.wav");
     public Motus game;
     java.util.List<ColorPane> lines = new ArrayList<>();
@@ -40,13 +40,15 @@ public class MainFrame extends JFrame implements KeyListener {
     GridLayout layboite_centrale = new GridLayout(7, 1, 5, 5);
     GridBagLayout winlay = new GridBagLayout();
 
-    boolean isWinningTurn;
+    boolean isWinningTurn, isBegginingLine;
 
     Thread sound = new Thread() {
         public void run() {
             while (true) {
-                if (isWinningTurn)
+                if (isWinningTurn) {
                     applause.play();
+//                    isWinningTurn = false;
+                }
             }
         }
     };
@@ -69,7 +71,7 @@ public class MainFrame extends JFrame implements KeyListener {
         setTitle("MOTUS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusableWindowState(true);
-//        getContentPane().setBackground(Color.black);
+        getContentPane().setBackground(Color.black);
         getContentPane().setLayout(winlay);
         setFocusCycleRoot(false);
 
@@ -82,7 +84,7 @@ public class MainFrame extends JFrame implements KeyListener {
         lines.get(6).setOpaque(true);
 
         boite_dialogue.setFont(new Font("Arcade Rounded", Font.PLAIN, 10));
-//        boite_dialogue.setBackground(Color.black);
+        boite_dialogue.setBackground(Color.black);
 
         boite_score1.setFont(new Font("Console", Font.PLAIN, 150));
         boite_score1.setForeground(Color.orange);
@@ -123,7 +125,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_score1.setVisible(false);
         boite_score2.setVisible(false);
 
-        sound.run();
+        sound.start();
     }
 
     public ColorPane getActiveColorPane() {
@@ -224,48 +226,73 @@ public class MainFrame extends JFrame implements KeyListener {
                 else getActiveColorPane().append(letterFont, fontsize, Color.white, " ");
             }
         }
+        isBegginingLine = true;
     }
 
     public void turnVictory() {
+        isWinningTurn = true;
         turnVictoryDisplay();
+        game.scoreUp(game.getActivePlayer());
+        controlScores();
         game.newTurn();
         newTurn();
     }
 
+    private void controlScores() {
+        //TODO : vérifier victoire en solo et en MP
+    }
+
     public void turnVictoryDisplay() {
         //tour gagné : animation
-        int soundChord = 0;
-        isWinningTurn = true;
-        while (soundChord < 5) {
-            for (int i = 0; i < game.getWordLenght() - 1; i++) {
-                charDisplay(getActiveColorPane().getText().charAt(i), Color.RED, i);
-                int j = i + 1;
-                if (j > game.getWordLenght()) j = 0;
-                charDisplay(getActiveColorPane().getText().charAt(j), Color.RED.brighter(), j);
-                int k = i - 1;
-                if (k < 0) k = game.getWordLenght() - 2;
-                charDisplay(getActiveColorPane().getText().charAt(k), Color.RED.darker(), k);
-                try {
-                    if (game.getWordLenght() == 9) Thread.sleep(68);
-                    if (game.getWordLenght() == 8) Thread.sleep(80);
-                    if (game.getWordLenght() == 7) Thread.sleep(94);
-                    if (game.getWordLenght() == 6) Thread.sleep(110);
-                    if (game.getWordLenght() == 5) Thread.sleep(136);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        for (int i = 0; i < game.getWordLenght() - 1; i++) {
+            try {
+                getActiveColorPane()
+                        .replace(letterFont, fontsize, Color.RED,
+                                getActiveColorPane().getText(i, 1), i, i + 1);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
             }
-            soundChord++;
+            int j = i + 1;
+            if (j > game.getWordLenght()) j = 0;
+            try {
+                getActiveColorPane()
+                        .replace(letterFont, fontsize,
+                                Color.RED.brighter(),
+                                getActiveColorPane().getText(j, 1), j, j + 1);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+            int k = i - 1;
+            if (k < 0) k = game.getWordLenght() - 1;
+            try {
+                getActiveColorPane()
+                        .replace(letterFont, fontsize - 1,
+                                Color.RED.darker(), getActiveColorPane().getText(k, 1), k, k + 1);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (game.getWordLenght() == 9) Thread.sleep(136);
+                if (game.getWordLenght() == 8) Thread.sleep(160);
+                if (game.getWordLenght() == 7) Thread.sleep(188);
+                if (game.getWordLenght() == 6) Thread.sleep(220);
+                if (game.getWordLenght() == 5) Thread.sleep(272);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         getActiveColorPane()
                 .replace(letterFont, fontsize,
                         Color.RED, game.getCurrentTurn().getWord(), 0,
                         game.getWordLenght());
+
+        isWinningTurn = false;
     }
 
     public void turnDefeat() {
         turnDefeatDisplay();
         game.newTurn();
+        newTurn();
     }
 
     public void turnDefeatDisplay() {
@@ -275,8 +302,19 @@ public class MainFrame extends JFrame implements KeyListener {
         lines.get(6).setBorder(BorderFactory.createLineBorder(Color.red, 3));
         lines.get(6).setVisible(true);
         for (int i = 0; i < game.getWordLenght(); i++) {
+//            charDisplay(game.getCurrentTurn().getWord().charAt(i), Color.RED, i);
             lines.get(6).append(letterFont, fontsize, Color.RED, game.getCurrentTurn().getWord().charAt(i));
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             bip_bp.play();
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -303,10 +341,11 @@ public class MainFrame extends JFrame implements KeyListener {
                 game.getCurrentTurn().getActiveRow() >= 0 && game.getCurrentTurn().getActiveRow() < 7
             /*&& getActiveTimer().getRTime() > 1000*/) {
 
-            if (getOffset() == 1) //balaye les lettres pré-remplies
+            if (isBegginingLine) {//balaye les lettres pré-remplies
                 for (byte i = 1; i < game.getWordLenght(); i++)
                     charDisplay(' ', Color.white, i);
-
+                isBegginingLine = false;
+            }
 //            getActiveTimer().major(500);
             Character tempchar = Character.toUpperCase(k.getKeyChar());
 

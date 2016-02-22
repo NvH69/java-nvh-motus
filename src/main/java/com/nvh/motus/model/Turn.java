@@ -23,10 +23,9 @@ public class Turn {
 
         while (wordToFind == null) {
 
-                wordToFind = Dictionaries.solutionsDictionary.get(nbRows).
-                        get(random.nextInt(Dictionaries.solutionsDictionary.get(nbRows).size()));
+            wordToFind = Dictionaries.solutionsDictionary.get(nbRows).
+                    get(random.nextInt(Dictionaries.solutionsDictionary.get(nbRows).size()));
         }
-        System.out.println(wordToFind);
         this.game = game;
     }
 
@@ -53,6 +52,7 @@ public class Turn {
         if (!isCorrectlySpelled(wordToTest)) return null;
 
         List<Integer> results = new ArrayList<>();
+        String wordToFind = game.getCurrentTurn().getWord().toString();
         for (int i = 0; i < wordToTest.length(); i++) {
             results.add(0);
         }
@@ -60,18 +60,18 @@ public class Turn {
         results.set(0, 2);
 
         for (int i = 1; i < wordToTest.length(); i++) {// teste les lettres bien placées
-            if (wordToTest.charAt(i) == game.getCurrentTurn().getWord().charAt(i)) {
+            if (wordToTest.charAt(i) == wordToFind.charAt(i)) {
                 results.set(i, 2);
                 this.getFoundLetters().set(i, true);
-                game.getCurrentTurn().getFoundLetters().set(i, true);
             } else {
                 results.set(i, 0);
             }
         }
         for (int i = 1; i < wordToTest.length(); i++) {//teste les lettres mal placées
             for (int j = 1; j < wordToTest.length(); j++) {
-                if (wordToTest.charAt(i) == game.getCurrentTurn().getWord().charAt(j) && i != j && results.get(i) == 0 && !this.getFoundLetters().get(j)) {
+                if (i != j && wordToTest.charAt(i) == wordToFind.charAt(j) && results.get(i) == 0 && results.get(j) != 2) {
                     results.set(i, 1);
+                    wordToFind = wordToFind.replaceFirst(String.valueOf(wordToTest.charAt(i)), " ");
                 }
             }
         }
@@ -87,10 +87,10 @@ public class Turn {
 
     public void newLine() {
         this.activeRow++;
-        this.foundLetters.set(0, true);
-        for (int i = 1; i < game.getWordLenght(); i++) {
-            this.foundLetters.set(i, false);
-        }
+//        this.foundLetters.set(0, true);
+//        for (int i = 1; i < game.getWordLenght(); i++) {
+//            this.foundLetters.set(i, false);
+//        }
     }
 
     public void mpWinningTurn() {

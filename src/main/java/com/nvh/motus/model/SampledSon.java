@@ -40,10 +40,10 @@ public class SampledSon {
         return samples;
     }
 
-    public boolean play() {
+    public void play() {
         InputStream source = new ByteArrayInputStream(this.getSamples());
 
-        int bufferSize = 1000000;
+        int bufferSize = 100000;
         byte[] buffer = new byte[bufferSize];
         SourceDataLine line;
         try {
@@ -52,7 +52,7 @@ public class SampledSon {
             line.open(format, bufferSize);
         } catch (LineUnavailableException e) {
             e.printStackTrace();
-            return false;
+            return;
         }
         line.start();
         try {
@@ -67,7 +67,5 @@ public class SampledSon {
         }
         line.drain();
         line.close();
-
-        return true;
     }
 }

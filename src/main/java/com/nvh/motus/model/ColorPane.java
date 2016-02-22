@@ -32,6 +32,11 @@ public class ColorPane extends JTextPane {
         replaceSelection(s.toString());
 
         this.update(this.getGraphics());
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void replace(String fonte, int taille, Color c, Object s, int pos1, int pos2) {
@@ -54,6 +59,11 @@ public class ColorPane extends JTextPane {
         moveCaretPosition(pos1);
         replaceSelection(s.toString());
         this.update(this.getGraphics());
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getLettersCount() {
