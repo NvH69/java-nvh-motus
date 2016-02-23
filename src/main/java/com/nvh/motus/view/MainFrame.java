@@ -21,8 +21,8 @@ public class MainFrame extends JFrame implements KeyListener {
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
     final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
     final SampledSon perdu = new SampledSon("/fin_perdu.wav");
-    //    final SampledSon ting = new SampledSon("/ting.wav");
-//    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
+    final SampledSon ting = new SampledSon("/ting.wav");
+    //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
     final SampledSon applause = new SampledSon("/GAGNER.wav");
     //    final SampledSon change = new SampledSon("/Body.wav");
     public Motus game;
@@ -39,7 +39,7 @@ public class MainFrame extends JFrame implements KeyListener {
     int dimbase;
     GridLayout layboite_centrale = new GridLayout(7, 1, 5, 5);
     GridBagLayout winlay = new GridBagLayout();
-    AnimationPlay animationPlay = new AnimationPlay();
+    AnimationPlay animationPlay;
     boolean isBeginningLine;
 
     public MainFrame() {
@@ -115,6 +115,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_score1.setVisible(false);
         boite_score2.setVisible(false);
 
+        animationPlay = new AnimationPlay();
         animationPlay.reset();
     }
 
@@ -236,6 +237,7 @@ public class MainFrame extends JFrame implements KeyListener {
     public void turnVictoryDisplay() {
         //tour gagné : animation
         animationPlay.setWinningTurn(true);
+        applause.play();
     }
 
     public void turnDefeat() {

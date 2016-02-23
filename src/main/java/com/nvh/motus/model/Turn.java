@@ -26,6 +26,7 @@ public class Turn {
             wordToFind = Dictionaries.solutionsDictionary.get(nbRows).
                     get(random.nextInt(Dictionaries.solutionsDictionary.get(nbRows).size()));
         }
+        System.out.println(wordToFind);
         this.game = game;
     }
 
