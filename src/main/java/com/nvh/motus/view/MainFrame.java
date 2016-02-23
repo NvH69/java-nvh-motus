@@ -39,7 +39,7 @@ public class MainFrame extends JFrame implements KeyListener {
     int dimbase;
     GridLayout layboite_centrale = new GridLayout(7, 1, 5, 5);
     GridBagLayout winlay = new GridBagLayout();
-    SoundPlay soundPlay = new SoundPlay();
+    AnimationPlay animationPlay = new AnimationPlay();
     boolean isBeginningLine;
 
     public MainFrame() {
@@ -115,7 +115,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_score1.setVisible(false);
         boite_score2.setVisible(false);
 
-        soundPlay.reset();
+        animationPlay.reset();
     }
 
     public ColorPane getActiveColorPane() {
@@ -221,7 +221,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
     public void turnVictory() {
 
-        soundPlay.setWinningTurn(true);
+        animationPlay.setWinningTurn(true);
         turnVictoryDisplay();
         game.scoreUp(game.getActivePlayer());
         controlScores();
@@ -235,47 +235,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
     public void turnVictoryDisplay() {
         //tour gagné : animation
-        for (int i = 0; i < game.getWordLenght() - 1; i++) {
-            try {
-                getActiveColorPane()
-                        .replace(letterFont, fontsize, Color.RED,
-                                getActiveColorPane().getText(i, 1), i, i + 1);
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-            int j = i + 1;
-            if (j > game.getWordLenght()) j = 0;
-            try {
-                getActiveColorPane()
-                        .replace(letterFont, fontsize,
-                                Color.RED.brighter(),
-                                getActiveColorPane().getText(j, 1), j, j + 1);
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-            int k = i - 1;
-            if (k < 0) k = game.getWordLenght() - 1;
-            try {
-                getActiveColorPane()
-                        .replace(letterFont, fontsize - 1,
-                                Color.RED.darker(), getActiveColorPane().getText(k, 1), k, k + 1);
-            } catch (BadLocationException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (game.getWordLenght() == 9) Thread.sleep(136);
-                if (game.getWordLenght() == 8) Thread.sleep(160);
-                if (game.getWordLenght() == 7) Thread.sleep(188);
-                if (game.getWordLenght() == 6) Thread.sleep(220);
-                if (game.getWordLenght() == 5) Thread.sleep(272);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        getActiveColorPane()
-                .replace(letterFont, fontsize,
-                        Color.RED, game.getCurrentTurn().getWord(), 0,
-                        game.getWordLenght());
+        animationPlay.setWinningTurn(true);
     }
 
     public void turnDefeat() {
