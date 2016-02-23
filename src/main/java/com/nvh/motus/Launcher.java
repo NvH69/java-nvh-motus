@@ -13,6 +13,5 @@ public class Launcher {
         new Dictionaries();
         mainFrame = new MainFrame();
         mainFrame.setVisible(true);
-
     }
 }

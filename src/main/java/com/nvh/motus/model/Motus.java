@@ -11,8 +11,8 @@ public class Motus {
     private long timePerRound;
     private long timePerGame;
     private List<Integer> scores = new ArrayList<>();
-
     private Turn currentTurn;
+    private boolean alive;
 
     public Motus(int nbPlayers, int wordLenght, long timePerRow1, long timePerRow2) {
         this.nbPlayers = nbPlayers;
@@ -23,6 +23,7 @@ public class Motus {
         this.scores.add(1, 0);
         this.activePlayer = 0;
         this.currentTurn = new Turn(this);
+        this.alive = true;
     }
 
     public int getWordLenght() {
@@ -84,6 +85,10 @@ public class Motus {
     private void changeActivePlayer() {
         if (this.getActivePlayer() == 0) this.setActivePlayer(1);
         else this.setActivePlayer(0);
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public void newLine() {

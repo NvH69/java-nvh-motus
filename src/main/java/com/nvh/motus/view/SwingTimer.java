@@ -49,20 +49,6 @@
 //                }
 //            }
 //
-//            //Jeu gagné
-//            if ((this == MainFrame.miniSwingTimer1 && Launcher.mainFrame.game.getActivePlayer() == 0) ||
-//                    (this == MainFrame.miniSwingTimer2 && Launcher.mainFrame.game.getActivePlayer() == 1)) {
-//                if ((Launcher.mainFrame.game.getScores().get(0) > 5 && (Launcher.mainFrame.game.getScores().get(0) -
-//                        Launcher.mainFrame.game.getScores().get(1)) > 1) ||
-//                        (Launcher.mainFrame.game.getScores().get(1) > 5 &&
-//                                (Launcher.mainFrame.game.getScores().get(1) -
-//                                        Launcher.mainFrame.game.getScores().get(0)) > 1) ||
-//                        Launcher.mainFrame.game.getScores().get(0) > 9 ||
-//                        Launcher.mainFrame.game.getScores().get(1) > 9) {
-//                    Launcher.mainFrame.offset = 0;
-//                    Launcher.mainFrame.game.getCurrentTurn().setActiveRow(0);
-//                    Launcher.mainFrame.gameMPVictory();
-//                }
 //                //tour gagné
 //                if (Launcher.mainFrame.game.getCurrentTurn().isAllFound()) {
 //                    Launcher.mainFrame.getActiveTimer().suspendOn();
@@ -71,18 +57,6 @@
 //                if (Launcher.mainFrame.game.getCurrentTurn().getActiveRow() > 7) {
 //                    Launcher.mainFrame.getActiveTimer().suspendOn();
 //
-//                }
-//                //case remplie => vérif mot
-//                if (Launcher.mainFrame.offset == Launcher.mainFrame.game.getWordLenght()
-//                        && Launcher.mainFrame.getActiveTimer().getRTime() > 1000) {
-//                    Launcher.mainFrame.offset = 0;
-//                    Launcher.mainFrame.getActiveTimer().suspendOn();
-//                    Launcher.mainFrame.lineResultDisplay
-//                            ((ArrayList<Integer>) Launcher.mainFrame.game.getCurrentTurn()
-//                                    .lineResult(Launcher.mainFrame.getActiveColorPane().getText().toUpperCase()));
-//                    if (Launcher.mainFrame.game.getCurrentTurn().getActiveRow() >= 7) {
-//                        Launcher.mainFrame.turnDefeat();
-//                    }
 //                }
 //            }
 //        }

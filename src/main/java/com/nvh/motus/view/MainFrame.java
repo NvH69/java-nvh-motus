@@ -23,7 +23,7 @@ public class MainFrame extends JFrame implements KeyListener {
     final SampledSon perdu = new SampledSon("/fin_perdu.wav");
     //    final SampledSon ting = new SampledSon("/ting.wav");
 //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
-    final SampledSon applause = new SampledSon("/gagne.au");
+    final SampledSon applause = new SampledSon("/GAGNER.wav");
     //    final SampledSon change = new SampledSon("/Body.wav");
     public Motus game;
     java.util.List<ColorPane> lines = new ArrayList<>();
@@ -39,19 +39,8 @@ public class MainFrame extends JFrame implements KeyListener {
     int dimbase;
     GridLayout layboite_centrale = new GridLayout(7, 1, 5, 5);
     GridBagLayout winlay = new GridBagLayout();
-
-    boolean isWinningTurn, isBegginingLine;
-
-    Thread sound = new Thread() {
-        public void run() {
-            while (true) {
-                if (isWinningTurn) {
-                    applause.play();
-//                    isWinningTurn = false;
-                }
-            }
-        }
-    };
+    SoundPlay soundPlay = new SoundPlay();
+    boolean isBeginningLine;
 
     public MainFrame() {
 
@@ -103,6 +92,7 @@ public class MainFrame extends JFrame implements KeyListener {
             line.addKeyListener(this);
             boite_centrale.add(line);
             line.setDebugGraphicsOptions(ColorPane.FRAMEBITS);
+
         }
 
         winlay.setConstraints(boite_centrale, new GridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
@@ -125,7 +115,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_score1.setVisible(false);
         boite_score2.setVisible(false);
 
-        sound.start();
+        soundPlay.reset();
     }
 
     public ColorPane getActiveColorPane() {
@@ -226,11 +216,12 @@ public class MainFrame extends JFrame implements KeyListener {
                 else getActiveColorPane().append(letterFont, fontsize, Color.white, " ");
             }
         }
-        isBegginingLine = true;
+        isBeginningLine = true;
     }
 
     public void turnVictory() {
-        isWinningTurn = true;
+
+        soundPlay.setWinningTurn(true);
         turnVictoryDisplay();
         game.scoreUp(game.getActivePlayer());
         controlScores();
@@ -285,8 +276,6 @@ public class MainFrame extends JFrame implements KeyListener {
                 .replace(letterFont, fontsize,
                         Color.RED, game.getCurrentTurn().getWord(), 0,
                         game.getWordLenght());
-
-        isWinningTurn = false;
     }
 
     public void turnDefeat() {
@@ -341,10 +330,10 @@ public class MainFrame extends JFrame implements KeyListener {
                 game.getCurrentTurn().getActiveRow() >= 0 && game.getCurrentTurn().getActiveRow() < 7
             /*&& getActiveTimer().getRTime() > 1000*/) {
 
-            if (isBegginingLine) {//balaye les lettres pré-remplies
+            if (isBeginningLine) {//balaye les lettres pré-remplies
                 for (byte i = 1; i < game.getWordLenght(); i++)
                     charDisplay(' ', Color.white, i);
-                isBegginingLine = false;
+                isBeginningLine = false;
             }
 //            getActiveTimer().major(500);
             Character tempchar = Character.toUpperCase(k.getKeyChar());

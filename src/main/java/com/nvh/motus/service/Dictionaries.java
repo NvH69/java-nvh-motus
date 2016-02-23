@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Dictionaries {
 
-    public static List<List<String>> fullDictionary = resetDictionary();
-    public static final List<List<String>> solutionsDictionary = resetDictionary();
+    public static List<ArrayList<String>> fullDictionary = resetDictionary();
+    public static final List<ArrayList<String>> solutionsDictionary = resetDictionary();
     private static URL fullDictionaryPath = Dictionaries.class.getResource("/Dico56789.txt");
     private static URL solutionsDictionaryPath = Dictionaries.class.getResource("/2000mots.txt");
 
@@ -52,8 +52,8 @@ public class Dictionaries {
         }
 
     }
-    private static List<List<String>> resetDictionary() {
-        List<List<String>> emptyDictionary = new ArrayList<>();
+    private static List<ArrayList<String>> resetDictionary() {
+        List<ArrayList<String>> emptyDictionary = new ArrayList<>();
         for (int i=0; i<16; i++)
             emptyDictionary.add(new ArrayList<>());
         return emptyDictionary;
