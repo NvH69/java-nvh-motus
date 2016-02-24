@@ -20,10 +20,10 @@ public class MainFrame extends JFrame implements KeyListener {
     final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
     final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
-    final SampledSon perdu = new SampledSon("/fin_perdu.wav");
+    final SampledSon lostTurn = new SampledSon("/fin_perdu.wav");
     final SampledSon ting = new SampledSon("/ting.wav");
     //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
-    final SampledSon applause = new SampledSon("/GAGNER.wav");
+    final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
     //    final SampledSon change = new SampledSon("/Body.wav");
     public Motus game;
     java.util.List<ColorPane> lines = new ArrayList<>();
@@ -115,7 +115,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_score1.setVisible(false);
         boite_score2.setVisible(false);
 
-        animationPlay = new AnimationPlay();
+        animationPlay = new AnimationPlay(this);
         animationPlay.reset();
     }
 
@@ -220,6 +220,10 @@ public class MainFrame extends JFrame implements KeyListener {
         isBeginningLine = true;
     }
 
+    private void controlScores() {
+        //TODO : vérifier victoire en solo et en MP
+    }
+
     public void turnVictory() {
 
         animationPlay.setWinningTurn(true);
@@ -230,43 +234,25 @@ public class MainFrame extends JFrame implements KeyListener {
         newTurn();
     }
 
-    private void controlScores() {
-        //TODO : vérifier victoire en solo et en MP
-    }
-
     public void turnVictoryDisplay() {
-        //tour gagné : animation
         animationPlay.setWinningTurn(true);
-        applause.play();
+        wonTurn.play();
     }
 
     public void turnDefeat() {
         turnDefeatDisplay();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         game.newTurn();
         newTurn();
     }
 
     public void turnDefeatDisplay() {
-        perdu.play();
-        lines.get(6).setText(null);
-        lines.get(5).setBorder(BorderFactory.createLineBorder(Color.white, 3));
-        lines.get(6).setBorder(BorderFactory.createLineBorder(Color.red, 3));
-        lines.get(6).setVisible(true);
-        for (int i = 0; i < game.getWordLenght(); i++) {
-//            charDisplay(game.getCurrentTurn().getWord().charAt(i), Color.RED, i);
-            lines.get(6).append(letterFont, fontsize, Color.RED, game.getCurrentTurn().getWord().charAt(i));
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            bip_bp.play();
-        }
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        animationPlay.setLosingTurn(true);
+        lostTurn.play();
     }
 
     public int getOffset() {
@@ -275,15 +261,15 @@ public class MainFrame extends JFrame implements KeyListener {
         return index;
     }
 
-    private void charDisplay(Character tempchar, Color color, int offset) {
-
-        getActiveColorPane().replace(letterFont, fontsize, color, tempchar, offset, offset + 1);
-    }
-
     private void controlTurn() {
         String toControl = getActiveColorPane().getText();
         java.util.List<Integer> results = game.getCurrentTurn().lineResult(toControl);
         lineResultDisplay((ArrayList<Integer>) results);
+    }
+
+    void charDisplay(Character tempchar, Color color, int offset) {
+
+        getActiveColorPane().replace(letterFont, fontsize, color, tempchar, offset, offset + 1);
     }
 
     @Override

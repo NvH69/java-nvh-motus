@@ -53,7 +53,7 @@
 //                if (Launcher.mainFrame.game.getCurrentTurn().isAllFound()) {
 //                    Launcher.mainFrame.getActiveTimer().suspendOn();
 //                }
-//                //tour perdu
+//                //tour lostTurn
 //                if (Launcher.mainFrame.game.getCurrentTurn().getActiveRow() > 7) {
 //                    Launcher.mainFrame.getActiveTimer().suspendOn();
 //

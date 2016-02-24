@@ -1,12 +1,8 @@
 package com.nvh.motus.view;
 
-import com.nvh.motus.Launcher;
-
-import javax.swing.text.BadLocationException;
+import javax.swing.*;
 import java.awt.*;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AnimationPlay extends Thread {
 
@@ -19,10 +15,13 @@ public class AnimationPlay extends Thread {
     public Calendar c;
     private boolean isWinningTurn;
     private boolean keepWorking;
+    private MainFrame frame;
+    private boolean isLosingTurn;
 
 
-    public AnimationPlay() {
+    public AnimationPlay(MainFrame frame) {
         this.isWinningTurn = false;
+        this.isLosingTurn = false;
         this.keepWorking = false;
         this.dt = dt + System.currentTimeMillis();
         dtreset = dt;
@@ -30,11 +29,17 @@ public class AnimationPlay extends Thread {
         LCD = null;
         tempLCD = new StringBuffer("");
         this.c = Calendar.getInstance();
+
+        this.frame = frame;
         start();
     }
 
     public void setWinningTurn(boolean winningTurn) {
         this.isWinningTurn = winningTurn;
+    }
+
+    public void setLosingTurn(boolean losingTurn) {
+        isLosingTurn = losingTurn;
     }
 
     @Override
@@ -45,84 +50,63 @@ public class AnimationPlay extends Thread {
                 c.setTimeInMillis(dt - nowTimer);
 
 //                limite temps atteinte : changement de joueur
-                if (c.getTimeInMillis() < 1000 /*&& this == MainFrame.miniSwingTimer1 */&&
-                        Launcher.mainFrame.game.getActivePlayer() == 0 &&
-                        Launcher.mainFrame.getOffset() < Launcher.mainFrame.game.getWordLenght()) {
-                    Launcher.mainFrame.ting.play();
+                if (c.getTimeInMillis() < 1000 /*&& this == MainFrame.miniSwingTimer1 */ &&
+                        frame.game.getActivePlayer() == 0 &&
+                        frame.getOffset() < frame.game.getWordLenght()) {
+                    frame.ting.play();
                     this.suspendOn();
-//                    Launcher.mainFrame.swapPlayer();
+//                    frame.swapPlayer();
                 }
                 if (c.getTimeInMillis() < 1000 && /*this == MainFrame.miniSwingTimer2 &&*/
-                        Launcher.mainFrame.game.getActivePlayer() == 1 &&
-                        Launcher.mainFrame.getOffset() < Launcher.mainFrame.game.getWordLenght()) {
-                    Launcher.mainFrame.ting.play();
+                        frame.game.getActivePlayer() == 1 &&
+                        frame.getOffset() < frame.game.getWordLenght()) {
+                    frame.ting.play();
                     this.suspendOn();
-                    //                    Launcher.mainFrame.swapPlayer();
+                    //                    frame.swapPlayer();
                 }
             }
 
-                //tour gagné
-                if (Launcher.mainFrame.game.getCurrentTurn().isAllFound()) {
-                    this.suspendOn();
-                }
-                //tour perdu
-                if (Launcher.mainFrame.game.getCurrentTurn().getActiveRow() > 7) {
-                    this.suspendOn();
+            //tour gagné
+            if (frame.game.getCurrentTurn().isAllFound()) {
+                this.suspendOn();
+            }
+            //tour perdu
+            if (frame.game.getCurrentTurn().getActiveRow() > 7) {
+                this.suspendOn();
 
-                }
+            }
 
-                if (this.isWinningTurn) {
-                    int loopCount = 0;
-                while (loopCount <4) {
-                    for (int i = 0; i < Launcher.mainFrame.game.getWordLenght() - 1; i++) {
+            if (this.isWinningTurn) {
+                    for (int color = 0; color < 255; color++) {
+                        frame.getActiveColorPane().replace(frame.letterFont, frame.fontsize, new Color(255-color, 0, color),
+                                frame.getActiveColorPane().getText(), 0, frame.game.getWordLenght());
                         try {
-
-                            Launcher.mainFrame.getActiveColorPane()
-                                    .replace(Launcher.mainFrame.letterFont, Launcher.mainFrame.fontsize, Color.RED,
-                                            Launcher.mainFrame.getActiveColorPane().getText(i, 1), i, i + 1);
-                        } catch (BadLocationException e) {
+                            Thread.sleep(5);
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
-                        }
-                        int j = i + 1;
-                        if (j > Launcher.mainFrame.game.getWordLenght()) j = 0;
-                        try {
-                            Launcher.mainFrame.getActiveColorPane()
-                                    .replace(Launcher.mainFrame.letterFont, Launcher.mainFrame.fontsize,
-                                            Color.RED.brighter(),
-                                            Launcher.mainFrame.getActiveColorPane().getText(j, 1), j, j + 1);
-                        } catch (BadLocationException e) {
-                            e.printStackTrace();
-                        }
-                        int k = i - 1;
-                        if (k < 0) k = Launcher.mainFrame.game.getWordLenght() - 1;
-                        try {
-                            Launcher.mainFrame.getActiveColorPane()
-                                    .replace(Launcher.mainFrame.letterFont, Launcher.mainFrame.fontsize - 1,
-                                            Color.RED.darker(), Launcher.mainFrame.getActiveColorPane().getText(k, 1), k, k + 1);
-                        } catch (BadLocationException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            if (Launcher.mainFrame.game.getWordLenght() == 9) Thread.sleep(68);
-                            if (Launcher.mainFrame.game.getWordLenght() == 8) Thread.sleep(80);
-                            if (Launcher.mainFrame.game.getWordLenght() == 7) Thread.sleep(96);
-                            if (Launcher.mainFrame.game.getWordLenght() == 6) Thread.sleep(110);
-                            if (Launcher.mainFrame.game.getWordLenght() == 5) Thread.sleep(136);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    Launcher.mainFrame.getActiveColorPane()
-                            .replace(Launcher.mainFrame.letterFont, Launcher.mainFrame.fontsize,
-                                    Color.RED, Launcher.mainFrame.game.getCurrentTurn().getWord(), 0,
-                                    Launcher.mainFrame.game.getWordLenght());
-                    loopCount++;
+                this.isWinningTurn = false;
+            }
+            
+            if (this.isLosingTurn) {
+                frame.lines.get(6).setText(frame.game.getCurrentTurn().getWord().toString());
+                frame.lines.get(5).setBorder(BorderFactory.createLineBorder(Color.white, 3));
+                frame.lines.get(6).setBorder(BorderFactory.createLineBorder(Color.red, 3));
+                frame.lines.get(6).setVisible(true);
+                for (int color = 0; color < 255; color++) {
+                    frame.lines.get(6).replace(frame.letterFont, frame.fontsize, new Color(color, 0, 0),
+                            frame.game.getCurrentTurn().getWord(), 0, frame.game.getWordLenght());
+                    try {
+                        Thread.sleep(15);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                    this.isWinningTurn = false;
-                }
+                this.isLosingTurn = false;
             }
         }
-
+    }
 
     public void reset() {
         this.keepWorking = true;
