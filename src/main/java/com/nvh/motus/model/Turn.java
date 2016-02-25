@@ -8,13 +8,14 @@ import java.util.List;
 public class Turn {
 
     public static java.util.Random random = new java.util.Random(System.currentTimeMillis());
-    public int nbRows = 7;
+    public int nbRows;
     private int activeRow;
     private String wordToFind = null;
     private List<Boolean> foundLetters = new ArrayList<>();
     private Motus game;
 
     public Turn(Motus game) {
+        this.nbRows = game.getWordLenght();
         this.activeRow = 0;
         this.foundLetters.add(true);
         for (int i = 1; i < game.getWordLenght(); i++) {

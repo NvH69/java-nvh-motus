@@ -58,9 +58,14 @@ public class ColorPane extends JTextPane {
 
     public int getLettersCount() {
         int lettersCount = 0;
-        for (Character c : this.getText().toCharArray()) {
-            if (Character.isLetter(c)) lettersCount++;
+        try {
+            for (Character c : this.getText().toCharArray()) {
+                if (Character.isLetter(c)) lettersCount++;
+            }
+            return lettersCount;
         }
-        return lettersCount;
+        catch (Exception e) {
+            return 0;
+        }
     }
 }

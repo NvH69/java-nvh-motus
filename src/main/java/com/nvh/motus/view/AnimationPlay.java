@@ -45,50 +45,38 @@ public class AnimationPlay extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (this.keepWorking) {
-                nowTimer = System.currentTimeMillis();
-                c.setTimeInMillis(dt - nowTimer);
+            nowTimer = System.currentTimeMillis();
+            c.setTimeInMillis(dt - nowTimer);
 
-//                limite temps atteinte : changement de joueur
-                if (c.getTimeInMillis() < 1000 /*&& this == MainFrame.miniSwingTimer1 */ &&
-                        frame.game.getActivePlayer() == 0 &&
-                        frame.getOffset() < frame.game.getWordLenght()) {
-                    frame.ting.play();
-                    this.suspendOn();
-//                    frame.swapPlayer();
-                }
-                if (c.getTimeInMillis() < 1000 && /*this == MainFrame.miniSwingTimer2 &&*/
-                        frame.game.getActivePlayer() == 1 &&
-                        frame.getOffset() < frame.game.getWordLenght()) {
-                    frame.ting.play();
-                    this.suspendOn();
-                    //                    frame.swapPlayer();
-                }
-            }
-
-            //tour gagné
-            if (frame.game.getCurrentTurn().isAllFound()) {
-                this.suspendOn();
-            }
-            //tour perdu
-            if (frame.game.getCurrentTurn().getActiveRow() > 7) {
-                this.suspendOn();
-
-            }
+////                limite temps atteinte : changement de joueur
+//            if (c.getTimeInMillis() < 1000 /*&& this == MainFrame.miniSwingTimer1 */ &&
+//                    frame.game.getActivePlayer() == 0 &&
+//                    frame.getOffset() < frame.game.getWordLenght()) {
+//                frame.ting.play();
+//                this.suspendOn();
+////                    frame.swapPlayer();
+//            }
+//            if (c.getTimeInMillis() < 1000 && /*this == MainFrame.miniSwingTimer2 &&*/
+//                    frame.game.getActivePlayer() == 1 &&
+//                    frame.getOffset() < frame.game.getWordLenght()) {
+//                frame.ting.play();
+//                this.suspendOn();
+//                //                    frame.swapPlayer();
+//            }
 
             if (this.isWinningTurn) {
-                    for (int color = 0; color < 255; color++) {
-                        frame.getActiveColorPane().replace(frame.letterFont, frame.fontsize, new Color(255-color, 0, color),
-                                frame.getActiveColorPane().getText(), 0, frame.game.getWordLenght());
-                        try {
-                            Thread.sleep(5);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                for (int color = 0; color < 255; color++) {
+                    frame.getActiveColorPane().replace(frame.letterFont, frame.fontsize, new Color(255 - color, 0, color),
+                            frame.getActiveColorPane().getText(), 0, frame.game.getWordLenght());
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                }
                 this.isWinningTurn = false;
             }
-            
+
             if (this.isLosingTurn) {
                 frame.lines.get(6).setText(frame.game.getCurrentTurn().getWord().toString());
                 frame.lines.get(5).setBorder(BorderFactory.createLineBorder(Color.white, 3));
@@ -106,13 +94,5 @@ public class AnimationPlay extends Thread {
                 this.isLosingTurn = false;
             }
         }
-    }
-
-    public void reset() {
-        this.keepWorking = true;
-    }
-
-    public void suspendOn() {
-        this.keepWorking = false;
     }
 }

@@ -20,8 +20,8 @@ public class MainFrame extends JFrame implements KeyListener {
     final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
     final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
-    final SampledSon lostTurn = new SampledSon("/fin_perdu.wav");
-    final SampledSon ting = new SampledSon("/ting.wav");
+    final SampledSon lostTurn = new SampledSon("/Gong.wav");
+//    final SampledSon ting = new SampledSon("/ting.wav");
     //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
     final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
     //    final SampledSon change = new SampledSon("/Body.wav");
@@ -44,13 +44,13 @@ public class MainFrame extends JFrame implements KeyListener {
 
     public MainFrame() {
 
-        this.game = new Motus(2, 7, 9000, 300000); //TODO : paramètrage par choix utilisateur
+        this.game = new Motus(2, 6, 9000, 300000); //TODO : paramètrage par choix utilisateur
 
         if (dim.width > 1440) {
             setSize(1440, 768);
-            fontsize = 127;
+            fontsize = 128;
         } else {
-            fontsize = 91;
+            fontsize = 92;
             setSize(1024, 600);
         }
         for (int i = 0; i < 7; i++)
@@ -116,7 +116,6 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_score2.setVisible(false);
 
         animationPlay = new AnimationPlay(this);
-        animationPlay.reset();
     }
 
     public ColorPane getActiveColorPane() {

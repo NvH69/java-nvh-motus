@@ -43,7 +43,7 @@ public class SampledSon {
     public void play() {
         InputStream source = new ByteArrayInputStream(this.getSamples());
 
-        int bufferSize = 100000;
+        int bufferSize = 1000000;
         byte[] buffer = new byte[bufferSize];
         SourceDataLine line;
         try {
