@@ -8,27 +8,24 @@ import java.util.List;
 public class Turn {
 
     public static java.util.Random random = new java.util.Random(System.currentTimeMillis());
-    public int nbRows;
     private int activeRow;
     private String wordToFind = null;
     private List<Boolean> foundLetters = new ArrayList<>();
     private Motus game;
 
     public Turn(Motus game) {
-        this.nbRows = game.getWordLenght();
         this.activeRow = 0;
         this.foundLetters.add(true);
+        if (game.random) {
+            int randomLenght = random.nextInt(4) + 5;
+            game.setWordLenght(randomLenght);
+        }
+        wordToFind = Dictionaries.solutionsDictionary.get(game.getWordLenght()).
+                get(random.nextInt(Dictionaries.solutionsDictionary.get(game.getWordLenght()).size()));
+        this.game = game;
         for (int i = 1; i < game.getWordLenght(); i++) {
             this.foundLetters.add(false);
         }
-
-        while (wordToFind == null) {
-
-            wordToFind = Dictionaries.solutionsDictionary.get(nbRows).
-                    get(random.nextInt(Dictionaries.solutionsDictionary.get(nbRows).size()));
-        }
-        System.out.println(wordToFind);
-        this.game = game;
     }
 
     public int getActiveRow() {
@@ -54,7 +51,7 @@ public class Turn {
         if (!isCorrectlySpelled(wordToTest)) return null;
 
         List<Integer> results = new ArrayList<>();
-        String wordToFind = game.getCurrentTurn().getWord().toString();
+        String wordToFind = this.game.getCurrentTurn().getWord().toString();
         for (int i = 0; i < wordToTest.length(); i++) {
             results.add(0);
         }
@@ -89,10 +86,6 @@ public class Turn {
 
     public void newLine() {
         this.activeRow++;
-//        this.foundLetters.set(0, true);
-//        for (int i = 1; i < game.getWordLenght(); i++) {
-//            this.foundLetters.set(i, false);
-//        }
     }
 
     public void mpWinningTurn() {

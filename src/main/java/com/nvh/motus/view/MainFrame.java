@@ -15,13 +15,13 @@ import java.util.logging.Logger;
 
 public class MainFrame extends JFrame implements KeyListener {
 
-    final String letterFont = "DropCaps Sans";  //TODO : nom de fonte en fct du OS
+    final String letterFont = "DropCaps";  //TODO : nom de fonte en fct du OS
     final String screenFont = "Arcade Rounded";
     final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
     final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
     final SampledSon lostTurn = new SampledSon("/Gong.wav");
-//    final SampledSon ting = new SampledSon("/ting.wav");
+    //    final SampledSon ting = new SampledSon("/ting.wav");
     //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
     final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
     //    final SampledSon change = new SampledSon("/Body.wav");
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
     public MainFrame() {
 
-        this.game = new Motus(2, 6, 9000, 300000); //TODO : paramètrage par choix utilisateur
+        this.game = new Motus(2, 6, 9000, 300000, true); //TODO : paramètrage par choix utilisateur
 
         if (dim.width > 1440) {
             setSize(1440, 768);
@@ -128,7 +128,7 @@ public class MainFrame extends JFrame implements KeyListener {
         //TODO : implémentation timers (général et par ligne)
 
         boite_score1.setText(String.valueOf(game.getScores().get(0)));
-        boite_score2.setText(String.valueOf(game.getScores().get(1)));
+        //boite_score2.setText(String.valueOf(game.getScores().get(1)));
 
         Dimension dbase;
         if (dim.width > 1440) {
