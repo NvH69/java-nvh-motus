@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class MainFrame extends JFrame implements KeyListener {
 
-    final String letterFont = "DropCaps";  //TODO : nom de fonte en fct du OS
+    final String letterFont = "DropCaps Sans";  //TODO : nom de fonte en fct du OS
     final String screenFont = "Arcade Rounded";
     final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
@@ -48,9 +48,9 @@ public class MainFrame extends JFrame implements KeyListener {
 
         if (dim.width > 1440) {
             setSize(1440, 768);
-            fontsize = 128;
+            fontsize = 120;
         } else {
-            fontsize = 92;
+            fontsize = 90;
             setSize(1024, 600);
         }
         for (int i = 0; i < 7; i++)
@@ -142,7 +142,6 @@ public class MainFrame extends JFrame implements KeyListener {
         for (ColorPane line : lines) {
             line.setPreferredSize(dbase);
             line.setBorder(BorderFactory.createLineBorder(Color.white, 3));
-
             line.setBackground(Color.black);
             line.setText(null);
         }
@@ -156,6 +155,7 @@ public class MainFrame extends JFrame implements KeyListener {
             lines.get(0).replace(letterFont, fontsize, Color.white, game.getCurrentTurn().getWord().charAt(trouve2), trouve2, trouve2 + 1);
             game.getCurrentTurn().getFoundLetters().set(trouve2, true);
         }
+        isBeginningLine = true;
         //getActiveTimer().reset();
     }
 

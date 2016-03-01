@@ -1,13 +1,17 @@
 package com.nvh.motus.model;
 
 import javax.swing.*;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import javax.swing.text.*;
 import java.awt.*;
 
 public class ColorPane extends JTextPane {
+
+    public ColorPane() {
+        StyledDocument doc = this.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+    }
 
     public void append(String fonte, int taille, Color c, Object s) {
 
