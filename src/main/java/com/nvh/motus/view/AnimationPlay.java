@@ -14,7 +14,6 @@ public class AnimationPlay extends Thread {
     public StringBuffer tempLCD;
     public Calendar c;
     private boolean isWinningTurn;
-    private boolean keepWorking;
     private MainFrame frame;
     private boolean isLosingTurn;
 
@@ -22,7 +21,6 @@ public class AnimationPlay extends Thread {
     public AnimationPlay(MainFrame frame) {
         this.isWinningTurn = false;
         this.isLosingTurn = false;
-        this.keepWorking = false;
         this.dt = dt + System.currentTimeMillis();
         dtreset = dt;
         keepCounting = false;
@@ -66,7 +64,7 @@ public class AnimationPlay extends Thread {
 
             if (this.isWinningTurn) {
                 for (int color = 0; color < 255; color++) {
-                    frame.getActiveColorPane().replace(frame.letterFont, frame.fontsize, new Color(255 - color, 0, color),
+                    frame.getActiveColorPane().replace(frame.letterFont, new Color(255 - color, 0, color),
                             frame.getActiveColorPane().getText(), 0, frame.game.getWordLenght());
                     try {
                         Thread.sleep(5);
@@ -83,7 +81,7 @@ public class AnimationPlay extends Thread {
                 frame.lines.get(6).setBorder(BorderFactory.createLineBorder(Color.red, 3));
                 frame.lines.get(6).setVisible(true);
                 for (int color = 0; color < 255; color++) {
-                    frame.lines.get(6).replace(frame.letterFont, frame.fontsize, new Color(color, 0, 0),
+                    frame.lines.get(6).replace(frame.letterFont, new Color(color, 0, 0),
                             frame.game.getCurrentTurn().getWord(), 0, frame.game.getWordLenght());
                     try {
                         Thread.sleep(15);

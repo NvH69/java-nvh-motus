@@ -13,13 +13,13 @@ public class ColorPane extends JTextPane {
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
     }
 
-    public void append(String fonte, int taille, Color c, Object s) {
+    public void append(Font font, Color c, Object s) {
 
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontFamily, fonte);
+                StyleConstants.FontFamily, font.getFontName());
         AttributeSet aset2 = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontSize, taille);
+                StyleConstants.FontSize, font.getSize());
         AttributeSet aset3 = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.Foreground, c);
         AttributeSet aset4 = sc.addAttribute(SimpleAttributeSet.EMPTY,
@@ -38,14 +38,14 @@ public class ColorPane extends JTextPane {
         this.update(this.getGraphics());
     }
 
-    public void replace(String fonte, int taille, Color c, Object s, int pos1, int pos2) {
+    public void replace(Font font, Color c, Object s, int pos1, int pos2) {
 
         setCaretPosition(pos2);
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontFamily, fonte);
+                StyleConstants.FontFamily, font.getFontName());
         AttributeSet aset2 = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontSize, taille);
+                StyleConstants.FontSize, font.getSize());
         AttributeSet aset3 = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.Foreground, c);
         AttributeSet aset4 = sc.addAttribute(SimpleAttributeSet.EMPTY,
