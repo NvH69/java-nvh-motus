@@ -16,8 +16,7 @@ public class PersonalFont {
             con = urlFont.openConnection();
             con.connect();
             InputStream inputStream = con.getInputStream();
-            String s = Font.createFont(Font.TRUETYPE_FONT, inputStream).getFamily().split(" ")[0];
-            font = new Font(s, Font.BOLD, size);
+            font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (Exception e) {
             e.printStackTrace();
         }

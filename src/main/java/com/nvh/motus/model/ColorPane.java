@@ -3,7 +3,6 @@ package com.nvh.motus.model;
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
-import java.util.Locale;
 
 public class ColorPane extends JTextPane {
 
@@ -14,13 +13,13 @@ public class ColorPane extends JTextPane {
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
     }
 
-    public void append(Font font, Color c, Object s) {
+    public void append(Font font, int size, Color c, Object s) {
 
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.FontFamily, font.getFamily());
         AttributeSet aset2 = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontSize, font.getSize());
+                StyleConstants.FontSize, size);
         AttributeSet aset3 = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.Foreground, c);
         AttributeSet aset4 = sc.addAttribute(SimpleAttributeSet.EMPTY,
@@ -39,14 +38,14 @@ public class ColorPane extends JTextPane {
         this.update(this.getGraphics());
     }
 
-    public void replace(Font font, Color c, Object s, int pos1, int pos2) {
+    public void replace(Font font, int size, Color c, Object s, int pos1, int pos2) {
 
         setCaretPosition(pos2);
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontFamily, font.getFontName().replace(" ",""));
+                StyleConstants.FontFamily, font.getFamily());
         AttributeSet aset2 = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontSize, font.getSize());
+                StyleConstants.FontSize, size);
         AttributeSet aset3 = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.Foreground, c);
         AttributeSet aset4 = sc.addAttribute(SimpleAttributeSet.EMPTY,

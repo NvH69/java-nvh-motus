@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class MainFrame extends JFrame implements KeyListener {
 
     public Font letterFont;
+    public int letterSize;
     final String screenFont = "Arcade Rounded";
     final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
@@ -132,7 +133,6 @@ public class MainFrame extends JFrame implements KeyListener {
         //boite_score2.setText(String.valueOf(game.getScores().get(1)));
 
         Dimension dbase;
-        int letterSize;
 
         if (dim.width > 1440) {
             dimbase = (96 * game.getWordLenght()) + 6;
@@ -155,11 +155,11 @@ public class MainFrame extends JFrame implements KeyListener {
         lines.get(6).setVisible(false);
         flagDoubleChange = false;
 
-        lines.get(0).append(letterFont, Color.RED, game.getCurrentTurn().getWord().charAt(0));
-        for (int i = 0; i < game.getWordLenght() - 1; i++) lines.get(0).append(letterFont, Color.white, " ");
+        lines.get(0).append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
+        for (int i = 0; i < game.getWordLenght() - 1; i++) lines.get(0).append(letterFont, letterSize, Color.white, " ");
         int trouve2 = random.nextInt(game.getWordLenght() - 2) + 1;
         if (game.getWordLenght() > 7) {
-            lines.get(0).replace(letterFont, Color.white, game.getCurrentTurn().getWord().charAt(trouve2), trouve2, trouve2 + 1);
+            lines.get(0).replace(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(trouve2), trouve2, trouve2 + 1);
             game.getCurrentTurn().getFoundLetters().set(trouve2, true);
         }
         isBeginningLine = true;
@@ -169,7 +169,7 @@ public class MainFrame extends JFrame implements KeyListener {
     public void lineResultDisplay(ArrayList<Integer> results) {
         if (results == null) {//mot incorrect (orthographe)
             try {
-                getActiveColorPane().replace(letterFont, Color.DARK_GRAY,
+                getActiveColorPane().replace(letterFont, letterSize, Color.DARK_GRAY,
                         getActiveColorPane().getText(1, game.getWordLenght() - 1), 1, game.getWordLenght());
             } catch (BadLocationException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -216,11 +216,11 @@ public class MainFrame extends JFrame implements KeyListener {
             game.newLine();
 
             getActiveColorPane().setBorder(BorderFactory.createLineBorder(Color.red, 3));
-            getActiveColorPane().append(letterFont, Color.RED, game.getCurrentTurn().getWord().charAt(0));
+            getActiveColorPane().append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
             for (int i = 1; i < game.getWordLenght(); i++) {
                 if (game.getCurrentTurn().getFoundLetters().get(i))
-                    getActiveColorPane().append(letterFont, Color.white, game.getCurrentTurn().getWord().charAt(i));
-                else getActiveColorPane().append(letterFont, Color.white, " ");
+                    getActiveColorPane().append(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(i));
+                else getActiveColorPane().append(letterFont, letterSize, Color.white, " ");
             }
         }
         isBeginningLine = true;
@@ -275,7 +275,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
     void charDisplay(Character tempchar, Color color, int offset) {
 
-        getActiveColorPane().replace(letterFont, color, tempchar, offset, offset + 1);
+        getActiveColorPane().replace(letterFont, letterSize, color, tempchar, offset, offset + 1);
     }
 
     @Override
