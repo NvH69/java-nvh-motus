@@ -3,6 +3,7 @@ package com.nvh.motus.model;
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import java.util.Locale;
 
 public class ColorPane extends JTextPane {
 
@@ -17,7 +18,7 @@ public class ColorPane extends JTextPane {
 
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontFamily, font.getFontName());
+                StyleConstants.FontFamily, font.getFamily());
         AttributeSet aset2 = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.FontSize, font.getSize());
         AttributeSet aset3 = sc.addAttribute(SimpleAttributeSet.EMPTY,
@@ -43,7 +44,7 @@ public class ColorPane extends JTextPane {
         setCaretPosition(pos2);
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
-                StyleConstants.FontFamily, font.getFontName());
+                StyleConstants.FontFamily, font.getFontName().replace(" ",""));
         AttributeSet aset2 = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.FontSize, font.getSize());
         AttributeSet aset3 = sc.addAttribute(SimpleAttributeSet.EMPTY,

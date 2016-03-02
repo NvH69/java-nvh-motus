@@ -17,7 +17,7 @@ public class Turn {
         this.activeRow = 0;
         this.foundLetters.add(true);
         if (game.random) {
-            int randomLenght = random.nextInt(4) + 5;
+            int randomLenght = random.nextInt(5) + 5;
             game.setWordLenght(randomLenght);
         }
         wordToFind = Dictionaries.solutionsDictionary.get(game.getWordLenght()).

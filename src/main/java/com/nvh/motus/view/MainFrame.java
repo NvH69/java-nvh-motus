@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class MainFrame extends JFrame implements KeyListener {
 
-    final Font letterFont = PersonalFont.loadFont("/DropCaps Sans.ttf", 120);
+    public Font letterFont;
     final String screenFont = "Arcade Rounded";
     final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
     final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
@@ -132,13 +132,19 @@ public class MainFrame extends JFrame implements KeyListener {
         //boite_score2.setText(String.valueOf(game.getScores().get(1)));
 
         Dimension dbase;
+        int letterSize;
+
         if (dim.width > 1440) {
             dimbase = (96 * game.getWordLenght()) + 6;
             dbase = new Dimension(dimbase, 85);
+            letterSize = 120;
         } else {
             dimbase = (69 * game.getWordLenght()) + 6;
             dbase = new Dimension(dimbase, 64);
+            letterSize = 90;
         }
+
+        letterFont = PersonalFont.loadFont("/DropCaps.ttf", letterSize);
 
         for (ColorPane line : lines) {
             line.setPreferredSize(dbase);

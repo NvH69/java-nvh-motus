@@ -12,13 +12,12 @@ public class PersonalFont {
         Font font = null;
         try {
             URLConnection con;
-            URL ufont = PersonalFont.class.getResource(fontName);
-            con = ufont.openConnection();
+            URL urlFont = PersonalFont.class.getResource(fontName);
+            con = urlFont.openConnection();
             con.connect();
             InputStream inputStream = con.getInputStream();
-            String s = Font.createFont(Font.TRUETYPE_FONT, inputStream).getFamily();
-
-            font = new Font(s, Font.PLAIN, size);
+            String s = Font.createFont(Font.TRUETYPE_FONT, inputStream).getFamily().split(" ")[0];
+            font = new Font(s, Font.BOLD, size);
         } catch (Exception e) {
             e.printStackTrace();
         }
