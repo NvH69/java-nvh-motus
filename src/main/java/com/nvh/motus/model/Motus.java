@@ -22,7 +22,6 @@ public class Motus {
         this.scores.add(0, 0);
         this.scores.add(1, 0);
         this.activePlayer = 0;
-        this.random = random;
         this.currentTurn = new Turn(this);
         this.alive = true;
     }

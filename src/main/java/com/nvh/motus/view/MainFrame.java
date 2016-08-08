@@ -151,7 +151,10 @@ public class MainFrame extends JFrame implements KeyListener {
             line.setText(null);
         }
         lines.get(6).setVisible(false);
-        flagDoubleChange = false;
+        /*
+        Implémentation à venir
+        boolean flagDoubleChange = false;
+         */
 
         lines.get(0).append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
         for (int i = 0; i < game.getWordLenght() - 1; i++)
