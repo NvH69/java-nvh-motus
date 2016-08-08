@@ -71,7 +71,7 @@ public class Motus {
     }
 
     public void scoreUp(int player) {
-        this.scores.set(player, this.scores.get(player)+1);
+        this.scores.set(player, this.scores.get(player) + 1);
     }
 
     public int getScoreDifference() {

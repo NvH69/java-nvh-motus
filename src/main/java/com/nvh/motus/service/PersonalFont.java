@@ -22,6 +22,7 @@ public class PersonalFont {
             e.printStackTrace();
         }
 
+        assert font != null;
         return font.deriveFont(size);
     }
 }

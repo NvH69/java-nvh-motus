@@ -53,9 +53,10 @@ public class MainFrame extends JFrame implements KeyListener {
         letterFont = PersonalFont.loadFont("/DropCaps.ttf", fontsize);
         setLocation(dim.width / 2 - getWidth() / 2, dim.height / 2 - getHeight() / 2);
         setTitle("MOTUS");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setFocusableWindowState(true);
         getContentPane().setBackground(Color.black);
+        GridBagLayout winlay = new GridBagLayout();
         getContentPane().setLayout(winlay);
         setFocusCycleRoot(false);
 
@@ -88,8 +89,7 @@ public class MainFrame extends JFrame implements KeyListener {
             line.setFocusable(false);
             line.addKeyListener(this);
             boite_centrale.add(line);
-            line.setDebugGraphicsOptions(ColorPane.FRAMEBITS);
-
+            line.setDebugGraphicsOptions(DebugGraphics.BUFFERED_OPTION);
         }
 
         winlay.setConstraints(boite_centrale, new GridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
