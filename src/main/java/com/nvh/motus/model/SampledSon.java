@@ -24,11 +24,11 @@ public class SampledSon {
         }
     }
 
-    public byte[] getSamples() {
+    private byte[] getSamples() {
         return samples;
     }
 
-    public byte[] getSamples(AudioInputStream stream) {
+    private byte[] getSamples(AudioInputStream stream) {
         int length = (int) (stream.getFrameLength() * format.getFrameSize());
         samples = new byte[length];
         DataInputStream in = new DataInputStream(stream);

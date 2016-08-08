@@ -31,7 +31,7 @@ public class Motus {
         return wordLenght;
     }
 
-    public void setWordLenght(int wordLenght) {
+    void setWordLenght(int wordLenght) {
         this.wordLenght = wordLenght;
     }
 
@@ -39,7 +39,7 @@ public class Motus {
         return activePlayer;
     }
 
-    public void setActivePlayer(int activePlayer) {
+    private void setActivePlayer(int activePlayer) {
         this.activePlayer = activePlayer;
     }
 

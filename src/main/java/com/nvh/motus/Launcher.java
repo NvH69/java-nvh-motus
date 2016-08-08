@@ -6,12 +6,11 @@ import com.nvh.motus.view.MainFrame;
 import java.io.IOException;
 
 public class Launcher {
-    public static MainFrame mainFrame;
 
     public static void main(String[] args) throws IOException {
 
         new Dictionaries();
-        mainFrame = new MainFrame();
+        MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
     }
 }

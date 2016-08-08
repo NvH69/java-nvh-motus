@@ -16,38 +16,30 @@ import java.util.logging.Logger;
 
 public class MainFrame extends JFrame implements KeyListener {
 
-    public Font letterFont;
-    public int letterSize;
-    final String screenFont = "Arcade Rounded";
-    final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
-    final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
-    final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
-    final SampledSon lostTurn = new SampledSon("/Gong.wav");
-    //    final SampledSon ting = new SampledSon("/ting.wav");
-    //    final SampledSon jeugagne = new SampledSon("/rock_002.wav");
-    final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
-    //    final SampledSon change = new SampledSon("/Body.wav");
-    public Motus game;
+    Font letterFont;
+    Motus game;
+    int letterSize;
     java.util.List<ColorPane> lines = new ArrayList<>();
-    java.util.Random random = new java.util.Random(System.currentTimeMillis());
-    boolean flagDoubleChange = false;
-    JLabel boite_score1 = new JLabel();
-    JLabel boite_score2 = new JLabel();
-    JLabel boite_dialogue = new JLabel();
-    JPanel boite_centrale = new JPanel();
-    int fontsize;
-    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    String intro = "<ESPACE> pour commencer";
-    int dimbase;
-    GridLayout layboite_centrale = new GridLayout(7, 1, 5, 5);
-    GridBagLayout winlay = new GridBagLayout();
-    AnimationPlay animationPlay;
-    boolean isBeginningLine;
+
+    private final SampledSon bip_bp = new SampledSon("/BASSOONh.wav");
+    private final SampledSon bip_mp = new SampledSon("/BASSOON.wav");
+    private final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
+    private final SampledSon lostTurn = new SampledSon("/Gong.wav");
+    private final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
+    private java.util.Random random = new java.util.Random(System.currentTimeMillis());
+    private JLabel boite_score1 = new JLabel();
+    private JLabel boite_score2 = new JLabel();
+    private JLabel boite_dialogue = new JLabel();
+    private JPanel boite_centrale = new JPanel();
+    private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    private AnimationPlay animationPlay;
+    private boolean isBeginningLine;
 
     public MainFrame() {
 
         this.game = new Motus(2, 6, 9000, 300000, true); //TODO : paramètrage par choix utilisateur
 
+        int fontsize;
         if (dim.width > 1440) {
             setSize(1440, 768);
             fontsize = 120;
@@ -88,6 +80,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_centrale.addKeyListener(this);
 
         //Disposition
+        GridLayout layboite_centrale = new GridLayout(7, 1, 5, 5);
         boite_centrale.setLayout(layboite_centrale);
 
         for (ColorPane line : lines) {
@@ -108,8 +101,10 @@ public class MainFrame extends JFrame implements KeyListener {
         add(boite_score2);
         add(boite_dialogue);
 
+        String intro = "<ESPACE> pour commencer";
         boite_dialogue.setText(intro);
 
+        String screenFont = "Arcade Rounded";
         boite_dialogue.setFont(new Font(screenFont, Font.PLAIN, 30 - (9 - game.getWordLenght()) * 4));
         boite_dialogue.setOpaque(true);
         boite_centrale.setOpaque(false);
@@ -122,12 +117,12 @@ public class MainFrame extends JFrame implements KeyListener {
         animationPlay = new AnimationPlay(this);
     }
 
-    public ColorPane getActiveColorPane() {
+    ColorPane getActiveColorPane() {
 
         return lines.get(game.getCurrentTurn().getActiveRow());
     }
 
-    public void newTurn() {
+    private void newTurn() {
 
         //TODO : implémentation timers (général et par ligne)
 
@@ -136,6 +131,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
         Dimension dbase;
 
+        int dimbase;
         if (dim.width > 1440) {
             dimbase = (96 * game.getWordLenght()) + 6;
             dbase = new Dimension(dimbase, 85);
@@ -169,7 +165,7 @@ public class MainFrame extends JFrame implements KeyListener {
         //getActiveTimer().reset();
     }
 
-    public void lineResultDisplay(ArrayList<Integer> results) {
+    private void lineResultDisplay(ArrayList<Integer> results) {
         if (results == null) {//mot incorrect (orthographe)
             try {
                 getActiveColorPane().replace(letterFont, letterSize, Color.DARK_GRAY,
@@ -210,7 +206,7 @@ public class MainFrame extends JFrame implements KeyListener {
 //        getActiveTimer().reset();
     }
 
-    public void newLine() {
+    private void newLine() {
 
         getActiveColorPane().setBorder(BorderFactory.createLineBorder(Color.white, 3));
 
@@ -233,7 +229,7 @@ public class MainFrame extends JFrame implements KeyListener {
         //TODO : vérifier victoire en solo et en MP
     }
 
-    public void turnVictory() {
+    private void turnVictory() {
 
         animationPlay.setWinningTurn(true);
         turnVictoryDisplay();
@@ -243,12 +239,12 @@ public class MainFrame extends JFrame implements KeyListener {
         newTurn();
     }
 
-    public void turnVictoryDisplay() {
+    private void turnVictoryDisplay() {
         animationPlay.setWinningTurn(true);
         wonTurn.play();
     }
 
-    public void turnDefeat() {
+    private void turnDefeat() {
         turnDefeatDisplay();
         try {
             Thread.sleep(3000);
@@ -259,12 +255,12 @@ public class MainFrame extends JFrame implements KeyListener {
         newTurn();
     }
 
-    public void turnDefeatDisplay() {
+    private void turnDefeatDisplay() {
         animationPlay.setLosingTurn(true);
         lostTurn.play();
     }
 
-    public int getOffset() {
+    private int getOffset() {
         int index = getActiveColorPane().getText().indexOf(' ');
         if (index == -1) return getActiveColorPane().getLettersCount();
         return index;
@@ -276,7 +272,7 @@ public class MainFrame extends JFrame implements KeyListener {
         lineResultDisplay((ArrayList<Integer>) results);
     }
 
-    void charDisplay(Character tempchar, Color color, int offset) {
+    private void charDisplay(Character tempchar, Color color, int offset) {
 
         getActiveColorPane().replace(letterFont, letterSize, color, tempchar, offset, offset + 1);
     }

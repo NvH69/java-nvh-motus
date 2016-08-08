@@ -4,46 +4,50 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Calendar;
 
-public class AnimationPlay extends Thread {
+class AnimationPlay extends Thread {
 
-    public final long dtreset;
-    public boolean keepCounting;
-    public long dt;
-    public long nowTimer;
-    public String LCD;
-    public StringBuffer tempLCD;
-    public Calendar c;
+    private long dt;
+    private Calendar c;
     private boolean isWinningTurn;
     private MainFrame frame;
     private boolean isLosingTurn;
 
+    /* Implémentations futures
+    private String LCD;
+    private boolean keepCounting;
+    private StringBuffer tempLCD;
+    private final long dtreset;
+    */
 
-    public AnimationPlay(MainFrame frame) {
+    AnimationPlay(MainFrame frame) {
         this.isWinningTurn = false;
         this.isLosingTurn = false;
         this.dt = dt + System.currentTimeMillis();
+        this.c = Calendar.getInstance();
+        this.frame = frame;
+
+        /*
         dtreset = dt;
         keepCounting = false;
         LCD = null;
         tempLCD = new StringBuffer("");
-        this.c = Calendar.getInstance();
+        */
 
-        this.frame = frame;
         start();
     }
 
-    public void setWinningTurn(boolean winningTurn) {
+    void setWinningTurn(boolean winningTurn) {
         this.isWinningTurn = winningTurn;
     }
 
-    public void setLosingTurn(boolean losingTurn) {
+    void setLosingTurn(boolean losingTurn) {
         isLosingTurn = losingTurn;
     }
 
     @Override
     public void run() {
         while (true) {
-            nowTimer = System.currentTimeMillis();
+            long nowTimer = System.currentTimeMillis();
             c.setTimeInMillis(dt - nowTimer);
 
 ////                limite temps atteinte : changement de joueur

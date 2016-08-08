@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Turn {
 
-    public static java.util.Random random = new java.util.Random(System.currentTimeMillis());
+    private static java.util.Random random = new java.util.Random(System.currentTimeMillis());
     private int activeRow;
     private String wordToFind = null;
     private List<Boolean> foundLetters = new ArrayList<>();
     private Motus game;
 
-    public Turn(Motus game) {
+    Turn(Motus game) {
         this.activeRow = 0;
         this.foundLetters.add(true);
         if (game.random) {
@@ -77,14 +77,14 @@ public class Turn {
         return results;
     }
 
-    public boolean isCorrectlySpelled(String wordToTest) {
+    private boolean isCorrectlySpelled(String wordToTest) {
         for (String word : Dictionaries.fullDictionary.get(this.game.getWordLenght()))
             if (wordToTest.equals(word)) return true;
 
         return false;
     }
 
-    public void newLine() {
+    void newLine() {
         this.activeRow++;
     }
 
