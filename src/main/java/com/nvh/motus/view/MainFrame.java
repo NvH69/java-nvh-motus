@@ -37,7 +37,7 @@ public class MainFrame extends JFrame implements KeyListener {
 
     public MainFrame() {
 
-        this.game = new Motus(2, 6, 9000, 300000, true); //TODO : paramètrage par choix utilisateur
+        this.game = new Motus(6, true); //TODO : paramètrage par choix utilisateur
 
         int fontsize;
         if (dim.width > 1440) {
