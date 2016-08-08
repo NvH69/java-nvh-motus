@@ -8,7 +8,7 @@ import java.net.URLConnection;
 public class PersonalFont {
 
 
-    public static Font loadFont(String fontName, int size) {
+    public static Font loadFont(String fontName, float size) {
         Font font = null;
         try {
             URLConnection con;
@@ -17,9 +17,11 @@ public class PersonalFont {
             con.connect();
             InputStream inputStream = con.getInputStream();
             font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return font;
+
+        return font.deriveFont(size);
     }
 }

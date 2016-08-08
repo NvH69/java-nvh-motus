@@ -58,6 +58,7 @@ public class MainFrame extends JFrame implements KeyListener {
         for (int i = 0; i < 7; i++)
             lines.add(new ColorPane());
 
+        letterFont = PersonalFont.loadFont("/DropCaps.ttf", fontsize);
         setLocation(dim.width / 2 - getWidth() / 2, dim.height / 2 - getHeight() / 2);
         setTitle("MOTUS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,6 +91,7 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_centrale.setLayout(layboite_centrale);
 
         for (ColorPane line : lines) {
+            line.setFont(letterFont);
             line.setFocusable(false);
             line.addKeyListener(this);
             boite_centrale.add(line);
@@ -156,7 +158,8 @@ public class MainFrame extends JFrame implements KeyListener {
         flagDoubleChange = false;
 
         lines.get(0).append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
-        for (int i = 0; i < game.getWordLenght() - 1; i++) lines.get(0).append(letterFont, letterSize, Color.white, " ");
+        for (int i = 0; i < game.getWordLenght() - 1; i++)
+            lines.get(0).append(letterFont, letterSize, Color.white, " ");
         int trouve2 = random.nextInt(game.getWordLenght() - 2) + 1;
         if (game.getWordLenght() > 7) {
             lines.get(0).replace(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(trouve2), trouve2, trouve2 + 1);
