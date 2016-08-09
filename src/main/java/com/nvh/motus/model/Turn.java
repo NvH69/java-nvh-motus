@@ -88,8 +88,10 @@ public class Turn {
         this.activeRow++;
     }
 
+    /* Implémentation future (plusieurs joueurs)
     public void mpWinningTurn() {
         if (this.game.getActivePlayer() == 0) this.game.getScores().set(0, this.game.getScores().get(0) + 1);
         else this.game.getScores().set(1, this.game.getScores().get(1) + 1);
     }
+    */
 }

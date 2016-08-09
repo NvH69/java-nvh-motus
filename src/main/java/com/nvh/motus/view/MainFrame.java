@@ -26,13 +26,14 @@ public class MainFrame extends JFrame implements KeyListener {
     private final SampledSon bip_np = new SampledSon("/BASSOONb.wav");
     private final SampledSon lostTurn = new SampledSon("/Gong.wav");
     private final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
-    private java.util.Random random = new java.util.Random(System.currentTimeMillis());
-    private JLabel boite_score1 = new JLabel();
-    private JLabel boite_score2 = new JLabel();
-    private JLabel boite_dialogue = new JLabel();
-    private JPanel boite_centrale = new JPanel();
-    private Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    private AnimationPlay animationPlay;
+    private final AnimationPlay animationPlay;
+    private final java.util.Random random = new java.util.Random(System.currentTimeMillis());
+    private final JLabel boite_score1 = new JLabel();
+    private final JLabel boite_score2 = new JLabel();
+    private final JLabel boite_dialogue = new JLabel();
+    private final JPanel boite_centrale = new JPanel();
+    private final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
     private boolean isBeginningLine;
 
     public MainFrame() {
