@@ -88,6 +88,11 @@ public class Turn {
         this.activeRow++;
     }
 
+    public int getFoundSecondLetter() {
+        int foundSecondLetter = random.nextInt(game.getWordLenght() - 2) + 1;
+        return foundSecondLetter;
+    }
+
     /* Implémentation future (plusieurs joueurs)
     public void mpWinningTurn() {
         if (this.game.getActivePlayer() == 0) this.game.getScores().set(0, this.game.getScores().get(0) + 1);

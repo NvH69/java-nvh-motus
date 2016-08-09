@@ -160,10 +160,12 @@ public class MainFrame extends JFrame implements KeyListener {
         lines.get(0).append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
         for (int i = 0; i < game.getWordLenght() - 1; i++)
             lines.get(0).append(letterFont, letterSize, Color.white, " ");
-        int trouve2 = random.nextInt(game.getWordLenght() - 2) + 1;
+
+        //Pour les tirages de 8 lettres et plus, une seconde lettre est donnée :
+        int foundSecondLetter = game.getCurrentTurn().getFoundSecondLetter();
         if (game.getWordLenght() > 7) {
-            lines.get(0).replace(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(trouve2), trouve2, trouve2 + 1);
-            game.getCurrentTurn().getFoundLetters().set(trouve2, true);
+            lines.get(0).replace(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(foundSecondLetter), foundSecondLetter, foundSecondLetter + 1);
+            game.getCurrentTurn().getFoundLetters().set(foundSecondLetter, true);
         }
         isBeginningLine = true;
         //getActiveTimer().reset();
