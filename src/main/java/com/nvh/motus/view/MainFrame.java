@@ -27,9 +27,8 @@ public class MainFrame extends JFrame implements KeyListener {
     private final SampledSon lostTurn = new SampledSon("/Gong.wav");
     private final SampledSon wonTurn = new SampledSon("/glass_ping.wav");
     private final AnimationPlay animationPlay;
-    private final java.util.Random random = new java.util.Random(System.currentTimeMillis());
-    private final JLabel boite_score1 = new JLabel();
-    private final JLabel boite_score2 = new JLabel();
+    private final JLabel playerOneScoreBox = new JLabel();
+    private final JLabel playerTwoScoreBox = new JLabel();
     private final JLabel boite_dialogue = new JLabel();
     private final JPanel boite_centrale = new JPanel();
     private final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -63,7 +62,8 @@ public class MainFrame extends JFrame implements KeyListener {
 
         //Tailles
         boite_centrale.setBorder(BorderFactory.createLineBorder(Color.blue.brighter(), 5));
-        boite_score1.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+        playerOneScoreBox.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+        playerTwoScoreBox.setBorder(BorderFactory.createLineBorder(Color.white, 5));
         //Divers
         boite_centrale.setBackground(Color.black);
 
@@ -72,10 +72,10 @@ public class MainFrame extends JFrame implements KeyListener {
         boite_dialogue.setFont(new Font("Arcade Rounded", Font.PLAIN, 10));
         boite_dialogue.setBackground(Color.black);
 
-        boite_score1.setFont(new Font("Console", Font.PLAIN, 150));
-        boite_score1.setForeground(Color.orange);
-        boite_score2.setFont(new Font("Console", Font.PLAIN, 150));
-        boite_score2.setForeground(Color.blue.brighter());
+        playerOneScoreBox.setFont(new Font("Console", Font.PLAIN, 150));
+        playerOneScoreBox.setForeground(Color.orange);
+        playerTwoScoreBox.setFont(new Font("Console", Font.PLAIN, 150));
+        playerTwoScoreBox.setForeground(Color.blue.brighter());
 
         //Focus
         addKeyListener(this);
@@ -94,12 +94,12 @@ public class MainFrame extends JFrame implements KeyListener {
         }
 
         winlay.setConstraints(boite_centrale, new GridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-        winlay.setConstraints(boite_score1, new GridBagConstraints(0, 0, 1, 0, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-        winlay.setConstraints(boite_score2, new GridBagConstraints(2, 0, 1, 0, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+        winlay.setConstraints(playerOneScoreBox, new GridBagConstraints(0, 0, 1, 0, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+        winlay.setConstraints(playerTwoScoreBox, new GridBagConstraints(2, 0, 1, 0, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
         winlay.setConstraints(boite_dialogue, new GridBagConstraints(1, 0, 1, 0, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-        add(boite_score1);
+        add(playerOneScoreBox);
+        add(playerTwoScoreBox);
         add(boite_centrale);
-        add(boite_score2);
         add(boite_dialogue);
 
         String intro = "<ESPACE> pour commencer";
@@ -112,8 +112,8 @@ public class MainFrame extends JFrame implements KeyListener {
 
         boite_dialogue.setVisible(true);
         boite_centrale.setVisible(false);
-        boite_score1.setVisible(false);
-        boite_score2.setVisible(false);
+        playerOneScoreBox.setVisible(false);
+        playerTwoScoreBox.setVisible(false);
 
         animationPlay = new AnimationPlay(this);
     }
@@ -127,8 +127,8 @@ public class MainFrame extends JFrame implements KeyListener {
 
         //TODO : implémentation timers (général et par ligne)
 
-        boite_score1.setText(String.valueOf(game.getScores().get(0)));
-        //boite_score2.setText(String.valueOf(game.getScores().get(1)));
+        playerOneScoreBox.setText(String.valueOf(game.getScores().get(0)));
+        playerTwoScoreBox.setText(String.valueOf(game.getScores().get(1)));
 
         Dimension dbase;
 
@@ -310,8 +310,8 @@ public class MainFrame extends JFrame implements KeyListener {
             boite_dialogue.setVisible(false);
             boite_centrale.setOpaque(true);
             boite_centrale.setVisible(true);
-            boite_score1.setVisible(true);
-            boite_score2.setVisible(true);
+            //playerOneScoreBox.setVisible(true);
+            //playerTwoScoreBox.setVisible(true);
             newTurn();
         }
 
