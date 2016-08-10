@@ -89,8 +89,7 @@ public class Turn {
     }
 
     public int getFoundSecondLetter() {
-        int foundSecondLetter = random.nextInt(game.getWordLenght() - 2) + 1;
-        return foundSecondLetter;
+        return random.nextInt(game.getWordLenght() - 2) + 1;
     }
 
     /* Implémentation future (plusieurs joueurs)
