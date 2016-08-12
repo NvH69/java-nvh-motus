@@ -1,7 +1,5 @@
-/*.iml
-*.DS_Store
+*.iml
 /out/*
 /.idea/*
-/src/main/java/com/nvh/motus/view/MultiplayerView.java
-/src/main/java/com/nvh/motus/view/SwingTimer.java
 /vpproject/
+/src/main/java/com/nvh/motus/view/swing/Timer.java
