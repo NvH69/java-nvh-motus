@@ -1,8 +1,7 @@
-package com.nvh.motus.view;
+package com.nvh.motus.view.swing;
 
-import com.nvh.motus.model.ColorPane;
 import com.nvh.motus.model.Motus;
-import com.nvh.motus.model.SampledSon;
+import com.nvh.motus.service.SampledSon;
 import com.nvh.motus.service.PersonalFont;
 
 import javax.swing.*;

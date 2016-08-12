@@ -1,4 +1,4 @@
-package com.nvh.motus.model;
+package com.nvh.motus.service;
 
 import com.nvh.motus.service.ResourceLoader;
 

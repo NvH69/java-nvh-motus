@@ -1,4 +1,4 @@
-package com.nvh.motus.view;
+package com.nvh.motus.view.swing;
 
 import javax.swing.*;
 import java.awt.*;

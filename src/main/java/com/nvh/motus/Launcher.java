@@ -1,7 +1,7 @@
 package com.nvh.motus;
 
 import com.nvh.motus.service.Dictionaries;
-import com.nvh.motus.view.MainFrame;
+import com.nvh.motus.view.swing.MainFrame;
 
 import java.io.IOException;
 
