@@ -4,24 +4,22 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dictionaries {
 
-    public static List<ArrayList<String>> fullDictionary = resetDictionary();
     public static final List<ArrayList<String>> solutionsDictionary = resetDictionary();
-    private static URL fullDictionaryPath = Dictionaries.class.getResource("/Dico56789.txt");
-    private static URL solutionsDictionaryPath = Dictionaries.class.getResource("/2000mots.txt");
-
+    public static List<ArrayList<String>> fullDictionary = resetDictionary();
+    private static ResourceLoader resourceLoader = new ResourceLoader();
     public Dictionaries() {
 
         String line;
 
         BufferedReader in = null;
         try {
-            in = new BufferedReader(new FileReader(fullDictionaryPath.getPath()));
+            String fullDictionaryPath = "/Dico56789.txt";
+            in = new BufferedReader(new FileReader(resourceLoader.getFileFromResource(fullDictionaryPath)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -37,7 +35,8 @@ public class Dictionaries {
         }
 
         try {
-            in = new BufferedReader(new FileReader(solutionsDictionaryPath.getPath()));
+            String solutionsDictionaryPath = "/2000mots.txt";
+            in = new BufferedReader(new FileReader(resourceLoader.getFileFromResource(solutionsDictionaryPath)));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -45,16 +44,17 @@ public class Dictionaries {
         try {
             assert in != null;
             while (!(line = in.readLine()).endsWith("*")) {
-                    solutionsDictionary.get(line.length()).add(line);
-                }
+                solutionsDictionary.get(line.length()).add(line);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
     private static List<ArrayList<String>> resetDictionary() {
         List<ArrayList<String>> emptyDictionary = new ArrayList<>();
-        for (int i=0; i<16; i++)
+        for (int i = 0; i < 16; i++)
             emptyDictionary.add(new ArrayList<>());
         return emptyDictionary;
     }

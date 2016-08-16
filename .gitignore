@@ -3,3 +3,5 @@
 /.idea/*
 /vpproject/
 /src/main/java/com/nvh/motus/view/swing/Timer.java
+/src/main/target/
+/target/
