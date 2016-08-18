@@ -74,10 +74,16 @@ public class Turn {
         }
         //teste les lettres mal placées
         for (int i = 1; i < wordToTest.length(); i++) {
-            for (int j = 1; j < wordToTest.length(); j++) {
-                if (i != j && wordToTest.charAt(i) == wordToFind.charAt(j) && results.get(i) == 0 && results.get(j) != 2) {
+            for (int j = 1; j < wordToFind.length(); j++) {
+                if (i != j &&
+                            results.get(i) == 0 &&
+                                results.get(j) != 2 &&
+                                    wordToTest.charAt(i) == wordToFind.charAt(j)
+                    ) {
                     results.set(i, 1);
-                    StringUtils.replaceOnce(wordToFind, String.valueOf(wordToTest.charAt(i)), " ");
+                    StringBuilder s = new StringBuilder(wordToFind);
+                    s.replace(j,j+1," ");
+                    wordToFind = s.toString();
                 }
             }
         }
