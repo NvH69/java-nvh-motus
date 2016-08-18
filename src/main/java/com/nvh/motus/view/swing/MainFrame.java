@@ -156,14 +156,14 @@ public class MainFrame extends JFrame implements KeyListener {
         boolean flagDoubleChange = false;
          */
 
-        lines.get(0).append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
+        lines.get(0).append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWordToFind().charAt(0));
         for (int i = 0; i < game.getWordLenght() - 1; i++)
             lines.get(0).append(letterFont, letterSize, Color.white, " ");
 
         //Pour les tirages de 8 lettres et plus, une seconde lettre est donnée :
         int foundSecondLetter = game.getCurrentTurn().getFoundSecondLetter();
         if (game.getWordLenght() > 7) {
-            lines.get(0).replace(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(foundSecondLetter), foundSecondLetter, foundSecondLetter + 1);
+            lines.get(0).replace(letterFont, letterSize, Color.white, game.getCurrentTurn().getWordToFind().charAt(foundSecondLetter), foundSecondLetter, foundSecondLetter + 1);
             game.getCurrentTurn().getFoundLetters().set(foundSecondLetter, true);
         }
         isBeginningLine = true;
@@ -220,10 +220,10 @@ public class MainFrame extends JFrame implements KeyListener {
             game.newLine();
 
             getActiveColorPane().setBorder(BorderFactory.createLineBorder(Color.red, 3));
-            getActiveColorPane().append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWord().charAt(0));
+            getActiveColorPane().append(letterFont, letterSize, Color.RED, game.getCurrentTurn().getWordToFind().charAt(0));
             for (int i = 1; i < game.getWordLenght(); i++) {
                 if (game.getCurrentTurn().getFoundLetters().get(i))
-                    getActiveColorPane().append(letterFont, letterSize, Color.white, game.getCurrentTurn().getWord().charAt(i));
+                    getActiveColorPane().append(letterFont, letterSize, Color.white, game.getCurrentTurn().getWordToFind().charAt(i));
                 else getActiveColorPane().append(letterFont, letterSize, Color.white, " ");
             }
         }
@@ -296,7 +296,7 @@ public class MainFrame extends JFrame implements KeyListener {
 //            getActiveTimer().major(500);
             Character tempchar = Character.toUpperCase(k.getKeyChar());
 
-            if (tempchar != game.getCurrentTurn().getWord().charAt(0) || getOffset() > 1) {
+            if (tempchar != game.getCurrentTurn().getWordToFind().charAt(0) || getOffset() > 1) {
                 charDisplay(tempchar, Color.white, getOffset());
             }
             if (getOffset() == game.getWordLenght()) {

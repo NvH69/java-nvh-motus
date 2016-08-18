@@ -36,8 +36,12 @@ public class Turn {
         return foundLetters;
     }
 
-    public CharSequence getWord() {
+    public CharSequence getWordToFind() {
         return this.wordToFind;
+    }
+
+    public void setWordToFind(String wordToFind) {
+        this.wordToFind = wordToFind;
     }
 
     public boolean isAllFound() {
@@ -51,14 +55,16 @@ public class Turn {
         if (!isCorrectlySpelled(wordToTest)) return null;
 
         List<Integer> results = new ArrayList<>();
-        String wordToFind = this.game.getCurrentTurn().getWord().toString();
-        for (int i = 0; i < wordToTest.length(); i++) {
+        String wordToFind = this.game.getCurrentTurn().getWordToFind().toString();
+
+        //initialisation du tableau réponse
+        results.add(2);
+        for (int i = 1; i < wordToTest.length(); i++) {
             results.add(0);
         }
 
-        results.set(0, 2);
-
-        for (int i = 1; i < wordToTest.length(); i++) {// teste les lettres bien placées
+        // teste les lettres bien placées
+        for (int i = 1; i < wordToTest.length(); i++) {
             if (wordToTest.charAt(i) == wordToFind.charAt(i)) {
                 results.set(i, 2);
                 this.getFoundLetters().set(i, true);
@@ -66,11 +72,12 @@ public class Turn {
                 results.set(i, 0);
             }
         }
-        for (int i = 1; i < wordToTest.length(); i++) {//teste les lettres mal placées
+        //teste les lettres mal placées
+        for (int i = 1; i < wordToTest.length(); i++) {
             for (int j = 1; j < wordToTest.length(); j++) {
                 if (i != j && wordToTest.charAt(i) == wordToFind.charAt(j) && results.get(i) == 0 && results.get(j) != 2) {
                     results.set(i, 1);
-                    wordToFind = wordToFind.replaceFirst(String.valueOf(wordToTest.charAt(i)), " ");
+                    StringUtils.replaceOnce(wordToFind, String.valueOf(wordToTest.charAt(i)), " ");
                 }
             }
         }

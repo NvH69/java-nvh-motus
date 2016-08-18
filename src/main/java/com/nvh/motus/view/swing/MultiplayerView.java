@@ -34,7 +34,7 @@ public static Timer miniSwingTimer1, miniSwingTimer2;
         lines.get(6).setBorder(BorderFactory.createLineBorder(Color.red, 3));
         lines.get(6).setVisible(true);
         for (int i = 0; i < game.getWordLenght(); i++) {
-            lines.get(6).append(letterFont, fontsize, Color.RED, String.valueOf(game.getCurrentTurn().getWord().charAt(i)).toUpperCase());
+            lines.get(6).append(letterFont, fontsize, Color.RED, String.valueOf(game.getCurrentTurn().getWordToFind().charAt(i)).toUpperCase());
             bip_bp.play();
         }
         if (game.getWordLenght() > 5) game.setWordLenght(game.getWordLenght() - 1);
@@ -96,12 +96,12 @@ public static Timer miniSwingTimer1, miniSwingTimer2;
                 getActiveColorPane().setText("");
                 getActiveColorPane()
                         .append(letterFont, fontsize, Color.RED, String.valueOf
-                                (game.getCurrentTurn().getWord().charAt(0)).toUpperCase());
-                for (int i = 1; i < game.getCurrentTurn().getWord().length(); i++) {
+                                (game.getCurrentTurn().getWordToFind().charAt(0)).toUpperCase());
+                for (int i = 1; i < game.getCurrentTurn().getWordToFind().length(); i++) {
                     if (game.getCurrentTurn().getFoundLetters().get(i))
                         getActiveColorPane()
                                 .append(letterFont, fontsize, Color.white, String.valueOf
-                                        (game.getCurrentTurn().getWord().charAt(i)).toUpperCase());
+                                        (game.getCurrentTurn().getWordToFind().charAt(i)).toUpperCase());
                     else getActiveColorPane().append(letterFont, fontsize, Color.white, " ");
                 }
             }
@@ -115,12 +115,12 @@ public static Timer miniSwingTimer1, miniSwingTimer2;
         getActiveColorPane().setText("");
         getActiveColorPane()
                 .append(letterFont, fontsize, Color.RED,
-                        game.getCurrentTurn().getWord().charAt(0));
+                        game.getCurrentTurn().getWordToFind().charAt(0));
         for (int charIndex = 1; charIndex < game.getWordLenght(); charIndex++) {
             if (game.getCurrentTurn().getFoundLetters().get(charIndex)) {
                 getActiveColorPane()
                         .append(letterFont, fontsize, Color.white,
-                                game.getCurrentTurn().getWord().charAt(charIndex));
+                                game.getCurrentTurn().getWordToFind().charAt(charIndex));
             } else {
                 getActiveColorPane()
                         .append(letterFont, fontsize, Color.white, " ");
@@ -138,14 +138,14 @@ public static Timer miniSwingTimer1, miniSwingTimer2;
         for (int j = 0; j < 255; j++) {
             getActiveColorPane()
                     .replace(letterFont, fontsize, new Color(j, j, j),
-                            game.getCurrentTurn().getWord().charAt(charIndexToAdd), charIndexToAdd, charIndexToAdd + 1);
+                            game.getCurrentTurn().getWordToFind().charAt(charIndexToAdd), charIndexToAdd, charIndexToAdd + 1);
 
             ct.begin();
             while (ct.get() < 4) Thread.yield();
         }
         getActiveColorPane()
                 .replace(letterFont, fontsize, Color.white,
-                        game.getCurrentTurn().getWord().charAt(charIndexToAdd), charIndexToAdd, charIndexToAdd + 1);
+                        game.getCurrentTurn().getWordToFind().charAt(charIndexToAdd), charIndexToAdd, charIndexToAdd + 1);
     }
 
     public void gameMPVictory() {

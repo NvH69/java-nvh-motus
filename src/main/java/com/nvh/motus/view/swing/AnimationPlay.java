@@ -80,13 +80,13 @@ class AnimationPlay extends Thread {
             }
 
             if (this.isLosingTurn) {
-                frame.lines.get(6).setText(frame.game.getCurrentTurn().getWord().toString());
+                frame.lines.get(6).setText(frame.game.getCurrentTurn().getWordToFind().toString());
                 frame.lines.get(5).setBorder(BorderFactory.createLineBorder(Color.white, 3));
                 frame.lines.get(6).setBorder(BorderFactory.createLineBorder(Color.red, 3));
                 frame.lines.get(6).setVisible(true);
                 for (int color = 0; color < 255; color++) {
                     frame.lines.get(6).replace(frame.letterFont, frame.letterSize, new Color(color, 0, 0),
-                            frame.game.getCurrentTurn().getWord(), 0, frame.game.getWordLenght());
+                            frame.game.getCurrentTurn().getWordToFind(), 0, frame.game.getWordLenght());
                     try {
                         Thread.sleep(15);
                     } catch (InterruptedException e) {
